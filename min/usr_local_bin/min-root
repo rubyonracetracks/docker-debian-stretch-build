@@ -1,0 +1,85 @@
+#!/bin/bash
+
+T_BEGIN=$(date +'%s')
+
+echo '--------------------'
+echo 'ls -l /usr/local/bin'
+ls -l /usr/local/bin
+
+# Prepare apt-get
+/usr/local/bin/aptget
+
+# Set environment variables to cut down on annoying warning messages
+export DEBIAN_FRONTEND='noninteractive'
+export DEBCONF_NOWARNINGS='true'
+export HOME=/root
+export LC_ALL=C
+
+echo '######################'
+echo 'BEGIN min-root actions'
+echo '######################'
+
+# Add Sudo
+echo '-----------------------'
+echo 'apt-get install -y sudo'
+apt-get install -y sudo
+
+# Add Nano
+echo '-----------------------'
+echo 'apt-get install -y nano'
+apt-get install -y nano
+
+# Add Tree
+echo '-----------------------'
+echo 'apt-get install -y tree'
+apt-get install -y tree
+
+# Add locales
+echo '--------------------------'
+echo 'apt-get install -y locales'
+apt-get install -y locales
+
+# LANGUAGE SETTINGS (needed for Tmux)
+echo '-----------------------------'
+echo 'Configuring language settings'
+echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+locale-gen
+
+# Add Tmux
+echo '-----------------------'
+echo 'apt-get install -y tmux'
+apt-get install -y tmux
+adduser --disabled-password --gecos '' winner
+
+# Giving user 'winner' access to sudo
+echo '-------------------'
+echo 'adduser winner sudo'
+adduser winner sudo
+
+# Giving root access to sudo
+echo '-----------------'
+echo "adduser root sudo"
+adduser root sudo
+
+echo '-----------------------------'
+echo 'Setting /etc/sudoers settings'
+# No password required to use sudo
+echo '%sudo ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers
+echo 'Updating /etc/sudoers to ensure that apt-get works'
+echo 'Defaults env_reset' >> /etc/sudoers
+echo 'Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' >> /etc/sudoers
+
+echo '#########################'
+echo 'FINISHED min-root actions'
+echo '#########################'
+
+su -c /usr/local/bin/min-user winner
+/usr/local/bin/finalize-root
+su -c /usr/local/bin/finalize-user winner
+su -c /usr/local/bin/check-min winner
+
+T_FINISH=$(date +'%s')
+T_ELAPSED=$(($T_FINISH-$T_BEGIN))
+echo '-------------'
+echo 'Time to transform minimal Debian into the min Docker image:'
+echo "$(($T_ELAPSED / 60)) minutes and $(($T_ELAPSED % 60)) seconds"

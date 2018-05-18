@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo '-------------------'
+echo 'BEGIN finalize-user'
+echo '-------------------'
+
+DATE=`date +%Y_%m%d_%H%M_%S -u`
+echo "Build Date: $DATE" >> /home/winner/timestamp.txt
+
+echo 'cat /home/winner/timestamp.txt'
+cat /home/winner/timestamp.txt
+
+echo '----------------------'
+echo 'FINISHED finalize-user'
+echo '----------------------'

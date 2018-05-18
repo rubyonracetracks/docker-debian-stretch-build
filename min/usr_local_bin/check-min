@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo '#######################'
+echo 'BEGIN min sanity checks'
+echo '#######################'
+
+echo '-------------------'
+echo 'cat /etc/os-release'
+cat /etc/os-release
+
+echo '------------------------------'
+echo 'cat /home/winner/timestamp.txt'
+cat /home/winner/timestamp.txt
+
+echo '------'
+echo 'whoami'
+whoami
+
+echo '-----------'
+echo 'sudo whoami'
+sudo whoami
+
+echo '--------------'
+echo 'sudo --version'
+sudo --version
+
+echo '--------------'
+echo 'nano --version'
+nano --version
+
+echo '--------------'
+echo 'tree --version'
+tree --version
+
+echo '-------'
+echo 'tmux -V'
+tmux -V
+
+echo '##########################'
+echo 'FINISHED min sanity checks'
+echo '##########################'
