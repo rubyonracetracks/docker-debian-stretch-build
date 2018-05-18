@@ -1,0 +1,157 @@
+#!/bin/bash
+
+# THINGS TO KEEP UP-TO-DATE:
+# Ruby versions (https://www.ruby-lang.org/en/downloads/)
+# Rails versions (https://rubygems.org/gems/rails/versions)
+# Nokogiri versions (https://rubygems.org/gems/nokogiri/versions)
+# PG versions (https://rubygems.org/gems/pg/versions)
+# FFI versions (https://rubygems.org/gems/ffi/versions)
+
+# NOTE: As of 5-4-2018, I am unable to start a new Rails app in Ruby 2.5.1.
+
+# BEGIN: activate rbenv
+export PATH="/home/winner/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+# END: activate rbenv
+
+# BEGIN: activate NVM
+export NVM_DIR="/home/winner/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# END: activate NVM
+
+nvm use --lts # Activate Node
+
+echo '################################'
+echo 'BEGIN rails-general-user actions'
+echo '################################'
+
+# Set of gems to install for each version of Ruby
+function install_gems {
+  # Certain gems (such as rainbow) require that Rubygems be updated.
+  # The default version of Rubygems may be incompatible with certain
+  # gems, such as rainbow, rubocop, and annotate.
+  echo '-------------------'
+  echo 'gem update --system'
+  gem update --system
+
+  # Installing bundler
+  echo '-------------------'
+  echo 'gem install bundler'
+  gem install bundler
+
+  # Installing MailCatcher
+  echo '-----------------------'
+  echo 'gem install mailcatcher'
+  gem install mailcatcher
+
+  # The latest versions of rails, pg, nokogiri, and ffi
+  echo '-----------------'
+  echo 'gem install rails'
+  gem install rails
+
+  echo '--------------'
+  echo 'gem install pg'
+  gem install pg
+
+  echo '--------------------'
+  echo 'gem install nokogiri'
+  gem install nokogiri
+
+  echo '---------------'
+  echo 'gem install ffi'
+  gem install ffi
+
+  # The versions of rails, pg, nokogiri, and ffi used in the Rails Tutorial Sample App
+  # https://bitbucket.org/railstutorial/sample_app_4th_ed/src
+  echo '--------------------------'
+  echo 'gem install rails -v 5.1.4'
+  gem install rails -v 5.1.4
+
+  echo '------------------------'
+  echo 'gem install pg -v 0.20.0'
+  gem install pg -v 0.20.0
+
+  echo '-----------------------------'
+  echo 'gem install nokogiri -v 1.8.2'
+  gem install nokogiri -v 1.8.2
+
+  echo '-------------------------'
+  echo 'gem install ffi -v 1.9.23'
+  gem install ffi -v 1.9.23
+
+  # The versions of rails, pg, nokogiri, and ffi needed for GenericApp.
+  echo '--------------------------'
+  echo 'gem install rails -v 5.2.0'
+  gem install rails -v 5.2.0
+
+  echo '-----------------------'
+  echo 'gem install pg -v 1.0.0'
+  gem install pg -v 1.0.0
+
+  echo '-----------------------------'
+  echo 'gem install nokogiri -v 1.8.2'
+  gem install nokogiri -v 1.8.2
+
+  echo '-------------------------'
+  echo 'gem install ffi -v 1.9.23'
+  gem install ffi -v 1.9.23
+}
+
+# Input parameter: 'ruby-x.y'
+function install_ruby_version {
+  ruby_version=$1
+  echo '################################'
+  echo 'BEGIN:'
+  echo "time rbenv install $ruby_version"
+  echo '################################'
+
+  time rbenv install $ruby_version
+
+  echo '################################'
+  echo 'END:'
+  echo "time rbenv install $ruby_version"
+  echo '################################'
+
+  echo ' /\'
+  echo '/  \'
+  echo "Time to install Ruby $rubyversion"
+  rbenv global $ruby_version
+  time install_gems
+  echo ' /\'
+  echo '/  \'
+  echo 'Time to install gems'  
+}
+
+function time_install_ruby_version {
+  RUBY_VERSION=$1
+  time install_ruby_version $RUBY_VERSION
+  echo ' /\'
+  echo '/  \'
+  echo "Time to install Ruby $RUBY_VERSION and gems"
+  rbenv global $RUBY_VERSION
+}
+# Latest versions of Ruby
+# https://www.ruby-lang.org/en/downloads/
+time_install_ruby_version 2.5.0
+
+echo '###################################'
+echo 'FINISHED rails-general-user actions'
+echo '###################################'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

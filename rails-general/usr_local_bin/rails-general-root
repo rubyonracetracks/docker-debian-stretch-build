@@ -1,0 +1,40 @@
+#!/bin/bash
+
+T_BEGIN=$(date +'%s')
+
+echo '--------------------'
+echo 'ls -l /usr/local/bin'
+ls -l /usr/local/bin
+
+# Prepare apt-get
+/usr/local/bin/aptget
+
+# Set environment variables to cut down on annoying warning messages
+export DEBIAN_FRONTEND='noninteractive'
+export DEBCONF_NOWARNINGS='true'
+export HOME=/root
+export LC_ALL=C
+
+echo '################################'
+echo 'BEGIN rails-general-root actions'
+echo '################################'
+
+echo '**************************'
+echo 'Nothing to install as root'
+echo '**************************'
+
+echo '###################################'
+echo 'FINISHED rails-general-root actions'
+echo '###################################'
+
+su -c /usr/local/bin/rails-general-user winner
+/usr/local/bin/finalize-root
+su -c /usr/local/bin/finalize-user winner
+su -c /usr/local/bin/check-rails-general winner
+
+T_FINISH=$(date +'%s')
+T_ELAPSED=$(($T_FINISH-$T_BEGIN))
+echo '-------------------------------------------------------------'
+echo 'Time to transform the dev image into the rails-general image:'
+echo "$(($T_ELAPSED / 60)) minutes and $(($T_ELAPSED % 60)) seconds"
+
