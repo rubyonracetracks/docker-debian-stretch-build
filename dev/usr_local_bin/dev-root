@@ -174,7 +174,8 @@ echo '#########################'
 echo 'FINISHED dev-root actions'
 echo '#########################'
 
-su -c /usr/local/bin/dev-user winner
+su -c /usr/local/bin/dev-user1 winner
+su -c /usr/local/bin/dev-user2 winner
 /usr/local/bin/finalize-root
 su -c /usr/local/bin/finalize-user winner
 su -c /usr/local/bin/check-dev winner
