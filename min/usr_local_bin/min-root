@@ -80,6 +80,6 @@ su -c /usr/local/bin/check-min winner
 
 T_FINISH=$(date +'%s')
 T_ELAPSED=$(($T_FINISH-$T_BEGIN))
-echo '-------------'
+echo '-----------------------------------------------------------'
 echo 'Time to transform minimal Debian into the min Docker image:'
 echo "$(($T_ELAPSED / 60)) minutes and $(($T_ELAPSED % 60)) seconds"
