@@ -18,6 +18,12 @@ echo '--------------'
 echo "apt-get update"
 apt-get update
 
+# NOTE: Skipping this test results in the following message for many other apt-get tasks:
+# debconf: delaying package configuration, since apt-utils is not installed
+echo '----------------------------'
+echo 'apt-get install -y apt-utils'
+apt-get install -y apt-utils
+
 echo '------------------'
 echo "apt-get upgrade -y"
 apt-get upgrade -y
