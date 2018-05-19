@@ -1,0 +1,13 @@
+#!/bin/bash
+
+/usr/local/bin/check-jekyll-general
+
+echo '###############################################'
+echo 'BEGIN jekyll-rubyonracetracks-com sanity checks'
+echo '###############################################'
+
+echo 'No additional sanity checks'
+
+echo '##################################################'
+echo 'FINISHED jekyll-rubyonracetracks-com sanity checks'
+echo '##################################################'
