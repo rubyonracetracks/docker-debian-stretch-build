@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/usr/local/bin/check-jekyll-general
+curl -ss https://raw.githubusercontent.com/rubyonracetracks/docker-debian-stretch-build/master/jekyll-general/usr_local_bin/check-jekyll-general | bash
 
 echo '###############################################'
 echo 'BEGIN jekyll-rubyonracetracks-com sanity checks'
