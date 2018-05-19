@@ -1,0 +1,39 @@
+#!/bin/bash
+
+/usr/local/bin/check-dev
+
+echo '##################################'
+echo 'BEGIN jekyll-general sanity checks'
+echo '##################################'
+
+# BEGIN: activate rbenv
+export PATH="/home/winner/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+# END: activate rbenv
+
+# BEGIN: activate NVM
+export NVM_DIR="/home/winner/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# END: activate NVM
+
+nvm use --lts # Activate Node
+
+echo '-------'
+echo 'ruby -v'
+ruby -v
+
+echo '-------------------'
+echo 'gem list "^jekyll$"'
+gem list "^jekyll$"
+
+echo '---------------------'
+echo 'gem list "^nokogiri$"'
+gem list "^nokogiri$"
+
+echo '----------------'
+echo 'gem list "^ffi$"'
+gem list "^ffi$"
+
+echo '#####################################'
+echo 'FINISHED jekyll-general sanity checks'
+echo '#####################################'

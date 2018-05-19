@@ -1,0 +1,92 @@
+#!/bin/bash
+
+# THINGS TO KEEP UP-TO-DATE:
+# Ruby versions (https://www.ruby-lang.org/en/downloads/)
+# Nokogiri versions (https://rubygems.org/gems/nokogiri/versions)
+# FFI versions (https://rubygems.org/gems/ffi/versions)
+
+# Ruby versions supported by Netlify: https://www.netlify.com/docs/continuous-deployment/#set-node-ruby-or-python-version
+
+# NOTE: As of 5-4-2018, I am unable to start a new Rails app in Ruby 2.5.1.
+
+# BEGIN: activate rbenv
+export PATH="/home/winner/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+# END: activate rbenv
+
+# BEGIN: activate NVM
+export NVM_DIR="/home/winner/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# END: activate NVM
+
+nvm use --lts # Activate Node
+
+echo '#################################'
+echo 'BEGIN jekyll-general-user actions'
+echo '#################################'
+
+# Set of gems to install for each version of Ruby
+function install_gems {
+  # Jekyll requires that Rubygems be updated.
+  # The default version of Rubygems may be incompatible.
+  echo '-------------------'
+  echo 'gem update --system'
+  gem update --system
+
+  echo '-------------------'
+  echo 'gem install bundler'
+  gem install bundler
+
+  echo '------------------'
+  echo 'gem install jekyll'
+  gem install jekyll
+
+  echo '---------------'
+  echo 'gem install ffi'
+  gem install ffi
+
+  echo '--------------------'
+  echo 'gem install nokogiri'
+  gem install nokogiri
+}
+
+# Input parameter: 'ruby-x.y'
+function install_ruby_version {
+  ruby_version=$1
+  echo '################################'
+  echo 'BEGIN:'
+  echo "time rbenv install $ruby_version"
+  echo '################################'
+
+  time rbenv install $ruby_version
+
+  echo '################################'
+  echo 'END:'
+  echo "time rbenv install $ruby_version"
+  echo '################################'
+
+  echo ' /\'
+  echo '/  \'
+  echo "Time to install Ruby $rubyversion"
+  rbenv global $ruby_version
+  time install_gems
+  echo ' /\'
+  echo '/  \'
+  echo 'Time to install gems'  
+}
+
+function time_install_ruby_version {
+  RUBY_VERSION=$1
+  time install_ruby_version $RUBY_VERSION
+  echo ' /\'
+  echo '/  \'
+  echo "Time to install Ruby $RUBY_VERSION and gems"
+  rbenv global $RUBY_VERSION
+}
+
+time_install_ruby_version 2.4.3
+time_install_ruby_version 2.3.6
+
+echo '####################################'
+echo 'FINISHED jekyll-general-user actions'
+echo '####################################'

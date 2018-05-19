@@ -21,6 +21,14 @@ export NVM_DIR="/home/winner/.nvm"
 
 nvm use --lts # Activate Node
 
+echo '------------'
+echo 'rbenv update'
+rbenv update
+
+echo '----------------'
+echo 'rbenv install -l'
+rbenv install -l
+
 echo '################################'
 echo 'BEGIN rails-general-user actions'
 echo '################################'
