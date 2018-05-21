@@ -1,4 +1,4 @@
-FROM rubyonracetracks/debian-stretch-min
+FROM rubyonracetracks/32bit-debian-stretch-min
 MAINTAINER Ruby On Racetracks
 
 COPY usr_local_bin/* /usr/local/bin/

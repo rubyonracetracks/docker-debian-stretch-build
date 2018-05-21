@@ -1,6 +1,7 @@
 #!/bin/bash
 
-DOCKER_IMAGE='rubyonracetracks/debian-stretch-dev'
+ABBREV='dev'
+DOCKER_IMAGE="rubyonracetracks/debian-stretch-$ABBREV"
 
 echo '************************************'
 echo "Docker image to build: $DOCKER_IMAGE"
@@ -20,10 +21,33 @@ echo '****************************'
 echo "BEGIN building $DOCKER_IMAGE"
 echo '****************************'
 
-cp $DIR_ROOT/dev/usr_local_bin $PWD
+rm -rf $PWD/usr_local_bin
+cp -r $DIR_ROOT/$ABBREV/usr_local_bin $PWD
 
 docker build -t $DOCKER_IMAGE . 2>&1 | tee $DIR_LOG/build-$DATE.txt
 
 echo '*******************************'
 echo "Finished building $DOCKER_IMAGE"
 echo '*******************************'
+
+echo ''
+echo '*******************************************************'
+echo "Check this new image ($DOCKER_IMAGE) before pushing it."
+echo 'Verify that the sanity checks performed during the'
+echo 'build process produced the expected results.'
+echo ''
+sleep 0.1s
+read -p "Are you ready to push this new image? (y/n) " choice
+case "$choice" in 
+  y|Y )
+    echo '-------------------------'
+    echo "docker push $DOCKER_IMAGE"
+    docker push $DOCKER_IMAGE
+    ;;
+  * )
+    echo '-------------------------'
+    echo "Not pushing $DOCKER_IMAGE"
+    echo 'If you wish to push this image, enter the following command:'
+    echo "docker push $DOCKER_IMAGE"
+  ;;
+esac
