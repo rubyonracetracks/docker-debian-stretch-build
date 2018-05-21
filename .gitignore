@@ -2,3 +2,4 @@ log/*
 */delete.sh
 *.tgz
 *.tgz.md5sum
+32bit-*/usr_local_bin/*
