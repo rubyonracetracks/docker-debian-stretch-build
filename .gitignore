@@ -1,2 +1,4 @@
 log/*
 */delete.sh
+*.tgz
+*.tgz.md5sum
