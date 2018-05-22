@@ -165,6 +165,7 @@ apt-get install -y libsqlite3-dev # Needed for sqlite3 gem
 apt-get install -y redis-server # Some Rails apps use Redis
 apt-get install -y graphviz # Needed for railroady and rails-erd gems
 apt-get install -y imagemagick # Needed for image parameters in Rails projects
+apt-get install -y libgtk-3-0 libgtkmm-3.0-dev libnotify-dev # Needed for the Rails server
 
 echo '+++++++++++++++++++++++++++++++++++++++++++++++'
 echo 'FINISHED installing rbenv prerequisites as root'
