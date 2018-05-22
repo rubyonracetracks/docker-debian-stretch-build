@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ABBREV='rails-general'
-DOCKER_IMAGE="rubyonracetracks/debian-stretch-$ABBREV"
+DOCKER_IMAGE="rubyonracetracks/32bit-debian-stretch-$ABBREV"
 
 echo '************************************'
 echo "Docker image to build: $DOCKER_IMAGE"
