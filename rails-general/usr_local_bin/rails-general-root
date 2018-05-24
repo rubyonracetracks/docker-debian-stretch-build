@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Set environment variables to cut down on annoying warning messages
+export DEBIAN_FRONTEND='noninteractive'
+export DEBCONF_NOWARNINGS='true'
+export HOME=/root
+export LC_ALL=C
+
 T_BEGIN=$(date +'%s')
 
 echo '--------------------'
@@ -8,12 +14,6 @@ ls -l /usr/local/bin
 
 # Prepare apt-get
 /usr/local/bin/aptget
-
-# Set environment variables to cut down on annoying warning messages
-export DEBIAN_FRONTEND='noninteractive'
-export DEBCONF_NOWARNINGS='true'
-export HOME=/root
-export LC_ALL=C
 
 echo '################################'
 echo 'BEGIN rails-general-root actions'
